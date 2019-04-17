@@ -1,3 +1,5 @@
+import Frame from './Frame.js';
+
 /** {Handler}  @class
   *
   */
@@ -187,10 +189,7 @@
 /** */
   function pushFrame(hdr, frame) {
     if (!this.frame) return;
-    const item = {
-      data: this.frame.getImageData(0, 0, hdr.size.x, hdr.size.y),
-      delay: this.delay * 10
-    }
+    const item = new Frame(hdr, this.frame, this.delay);
     this.frames.push(item);
   }
 
