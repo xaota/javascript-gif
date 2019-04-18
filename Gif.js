@@ -14,7 +14,8 @@ import Vector from '../javascript-algebra/library/vector.js';
     constructor() {
       this.data = {
         frames: [],
-        size: Vector.zero
+        size: Vector.zero,
+        duration: 0
       };
     }
 
@@ -22,8 +23,9 @@ import Vector from '../javascript-algebra/library/vector.js';
     * @param {Handler} handler параметры
    */
     init(handler) {
-      this.data.frames = handler.frames;
-      this.data.size   = handler.data.hdr.size;
+      this.data.frames   = handler.frames;
+      this.data.size     = handler.data.hdr.size;
+      this.data.duration = this.data.frames.map(e => e.delay).reduce((o, e) => o + e, 0);
       return this;
     }
 
@@ -49,12 +51,14 @@ import Vector from '../javascript-algebra/library/vector.js';
 
   /** / delay */
     delay(index) {
-      const frames = this.frames;
       return index !== undefined
-        ? frames[index].delay
-        : frames
-            .map(frame => frame.delay)
-            .reduce((o, e) => o + e, 0);
+        ? this.frames[index].delay
+        : this.duration;
+    }
+
+  /** */
+    get duration() {
+      return this.data.duration;
     }
 
   /** / fetch @async @static

@@ -12,6 +12,7 @@
       const size = hdr.size;
       const image = new Image();
       image.src = frame.canvas.toDataURL();
+      if (delay === 0) delay = 10;
       this.meta = {
         data,
         size,

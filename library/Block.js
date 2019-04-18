@@ -48,7 +48,7 @@ const ext = {
       var lzwData = readSubBlocks(stream);
 
       image.pixels = new LZW(lzwData, image.lzwMinCodeSize).decode();
-      if (interlaced) image.pixels = deinterlace(image.pixels, image.width); // Move
+      if (interlaced) image.pixels = deinterlace(image.pixels, image.size.x); // Move
 
       handler.img(image);
     }
@@ -76,7 +76,7 @@ const ext = {
     var steps = [8, 8, 4, 2];
 
     var fromRow = 0;
-    for (var pass = 0; pass < 4; pass++) {
+    for (var pass = 0; pass < 4; ++pass) {
       for (var toRow = offsets[pass]; toRow < rows; toRow += steps[pass]) {
         cpRow(toRow, fromRow, pixels, width, newPixels);
         ++fromRow;

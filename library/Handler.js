@@ -138,10 +138,6 @@ import Frame from './Frame.js';
     img.pixels.forEach((pixel, i) => {
       // imgData.data === [R,G,B,A,R,G,B,A,...]
       if (pixel !== this.transparency) {
-        if (!ct[pixel]) {
-          console.log(img);
-          debugger;
-        }
         imgData.data[i * 4 + 0] = ct[pixel][0];
         imgData.data[i * 4 + 1] = ct[pixel][1];
         imgData.data[i * 4 + 2] = ct[pixel][2];
@@ -151,18 +147,6 @@ import Frame from './Frame.js';
 
     frame.putImageData(imgData, img.offset.x, img.offset.y);
 
-    // if (!ctx_scaled) {
-    //   this.context.scale(get_canvas_scale(),get_canvas_scale());
-    //   ctx_scaled = true;
-    // }
-
-    // We could use the on-page canvas directly, except that we draw a progress
-    // bar for each image chunk (not just the final image).
-    // if (drawWhileLoading) {
-    //     this.context.drawImage(this.temp, 0, 0);
-    //     drawWhileLoading = options.auto_play;
-    // }
-
     this.frame = frame;
     this.lastImg = img;
   }
@@ -171,7 +155,7 @@ import Frame from './Frame.js';
   * @this {Handler}
   */
   function doHDR(hdr) {
-    // console.log(hdr.size); // !
+    // console.log('hdr!', hdr, hdr.size); // !
     // setSizes.call(this, hdr.width, hdr.height);
   }
 
@@ -203,8 +187,9 @@ import Frame from './Frame.js';
     const frame  = this.frame;
     const last   = this.lastImg;
     if (!frame || !last) return;
-    const offset = last.offset;
-    const size   = last.size;
-    frame.clearRect(offset.x, offset.y, size.x, size.y);
+    // const offset = last.offset;
+    // const size   = last.size;
+    // frame.clearRect(offset.x, offset.y, size.x, size.y);
+    this.lastDisposalMethod = this.disposalMethod;
   }
 // #endregion

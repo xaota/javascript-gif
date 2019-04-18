@@ -1,6 +1,6 @@
 {
   "name": "javascript-gif",
-  "version": "1.2.0",
+  "version": "1.3.0",
   "description": "Чтение и разбор по кадрам GIF-анимаций (es-module)",
   "main": "index.js",
   "scripts": {
