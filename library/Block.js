@@ -40,7 +40,8 @@ const ext = {
       image.reserved = bits.splice(0, 2);
       const size = bitsToNum(bits.splice(0, 3));
 
-      if (lct) image.lct = LZW.parseCT(1 << (size + 1));
+      if (lct) image.lct = LZW.parseCT(1 << (size + 1), stream);
+      image.lctFlag = lct; // !
 
       image.lzwMinCodeSize = stream.readByte();
 

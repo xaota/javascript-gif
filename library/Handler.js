@@ -124,7 +124,8 @@ import Frame from './Frame.js';
         // Restore to background color
         // Browser implementations historically restore to transparent; we do the same.
         // http://www.wizards-toolkit.org/discourse-server/viewtopic.php?f=1&t=21172#p86079
-        frame.clearRect(this.lastImg.leftPos, this.lastImg.topPos, this.lastImg.width, this.lastImg.height);
+        // frame.clearRect(this.lastImg.leftPos, this.lastImg.topPos, this.lastImg.width, this.lastImg.height);
+        frame.clearRect(this.lastImg.offset.x, this.lastImg.offset.y, this.lastImg.size.x, this.lastImg.size.y);
       }
     }
     // else, Undefined/Do not dispose.
@@ -137,6 +138,10 @@ import Frame from './Frame.js';
     img.pixels.forEach((pixel, i) => {
       // imgData.data === [R,G,B,A,R,G,B,A,...]
       if (pixel !== this.transparency) {
+        if (!ct[pixel]) {
+          console.log(img);
+          debugger;
+        }
         imgData.data[i * 4 + 0] = ct[pixel][0];
         imgData.data[i * 4 + 1] = ct[pixel][1];
         imgData.data[i * 4 + 2] = ct[pixel][2];
@@ -166,7 +171,7 @@ import Frame from './Frame.js';
   * @this {Handler}
   */
   function doHDR(hdr) {
-    console.log(hdr.size); // !
+    // console.log(hdr.size); // !
     // setSizes.call(this, hdr.width, hdr.height);
   }
 
@@ -195,6 +200,11 @@ import Frame from './Frame.js';
 
 /** */
   function clear() {
-    // console.log('clear');
+    const frame  = this.frame;
+    const last   = this.lastImg;
+    if (!frame || !last) return;
+    const offset = last.offset;
+    const size   = last.size;
+    frame.clearRect(offset.x, offset.y, size.x, size.y);
   }
 // #endregion
