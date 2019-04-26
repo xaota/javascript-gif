@@ -1,4 +1,7 @@
 .DS_store
-node_modules/
+
 .eslintrc
 .babelrc
+
+node_modules/
+.history/
